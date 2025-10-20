@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "eebb58b8-6470-420b-8a26-6187b76f2670",
+		"name": "RAG Code Assistant API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41727188"
+	},
+	"item": [
+		{
+			"name": "root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{app}}/",
+					"host": [
+						"{{app}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "root",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{app}}/",
+							"host": [
+								"{{app}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "date",
+							"value": "Mon, 20 Oct 2025 22:35:33 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "138"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"online\",\n    \"message\": \"RAG Code Assistant API is running. Visit /docs for documentation.\",\n    \"timestamp\": \"2025-10-21T01:35:33.955672\"\n}"
+				}
+			]
+		},
+		{
+			"name": "health",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{app}}/health",
+					"host": [
+						"{{app}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "health",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{app}}/health",
+							"host": [
+								"{{app}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "date",
+							"value": "Mon, 20 Oct 2025 22:38:42 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "97"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"healthy\",\n    \"message\": \"All systems operational\",\n    \"timestamp\": \"2025-10-21T01:38:42.666909\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Examples",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{app}}/examples",
+					"host": [
+						"{{app}}"
+					],
+					"path": [
+						"examples"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "examples",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{app}}/examples",
+							"host": [
+								"{{app}}"
+							],
+							"path": [
+								"examples"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "date",
+							"value": "Mon, 20 Oct 2025 22:39:24 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "336"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"examples\": [\n        \"Generate a function to calculate factorial\",\n        \"Explain how binary search works\",\n        \"Write a function to reverse a string\",\n        \"Create a function to check if a number is prime\",\n        \"Explain what recursion is\",\n        \"Generate a function to sort a list\",\n        \"How does dynamic programming work?\",\n        \"Write a function to find the nth Fibonacci number\"\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "chat",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"query\": \"Generate a function to calculate factorial\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{app}}/query",
+					"host": [
+						"{{app}}"
+					],
+					"path": [
+						"query"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "chat",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\": \"Generate a function to calculate factorial\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{app}}/query",
+							"host": [
+								"{{app}}"
+							],
+							"path": [
+								"query"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "date",
+							"value": "Mon, 20 Oct 2025 22:50:07 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "3106"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"query\": \"Generate a function to calculate factorial\",\n    \"intent\": \"generate_code\",\n    \"response\": \"```python\\n\\\"\\\"\\\"\\nA small, self‑contained module that implements the factorial function.\\n\\nThe implementation is iterative, which keeps the memory footprint constant\\nand is fast enough for all practical integer sizes that fit into a Python\\n`int`.  The function validates its input and raises a clear exception for\\ninvalid values.\\n\\\"\\\"\\\"\\n\\nfrom __future__ import annotations\\n\\n__all__ = [\\\"factorial\\\"]\\n\\n\\ndef factorial(n: int) -> int:\\n    \\\"\\\"\\\"\\n    Return the factorial of a non‑negative integer ``n``.\\n\\n    The factorial of ``n`` (written ``n!``) is the product of all\\n    positive integers less than or equal to ``n``.  By convention,\\n    ``0!`` is defined to be ``1``.\\n\\n    Parameters\\n    ----------\\n    n : int\\n        The number whose factorial is to be computed.  Must be\\n        a non‑negative integer.\\n\\n    Returns\\n    -------\\n    int\\n        The factorial of ``n``.\\n\\n    Raises\\n    ------\\n    ValueError\\n        If ``n`` is negative.\\n\\n    Examples\\n    --------\\n    >>> factorial(0)\\n    1\\n    >>> factorial(5)\\n    120\\n    >>> factorial(10)\\n    3628800\\n    \\\"\\\"\\\"\\n    if n < 0:\\n        raise ValueError(\\\"n must be a non‑negative integer\\\")\\n\\n    result = 1\\n    # Multiplying from 2 to n is sufficient; 1 has no effect.\\n    for i in range(2, n + 1):\\n        result *= i\\n\\n    return result\\n```\",\n    \"retrieved_context\": [\n        {\n            \"content\": \"Task: \\ndef special_factorial(n):\\n    \\\"\\\"\\\"The Brazilian factorial is defined as:\\n    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!\\n    where n > 0\\n\\n    For example:\\n    >>> special_factorial(4)\\n    288\\n\\n    The function will receive an integer as input and should return the special\\n    factorial of this integer.\\n    \\\"\\\"\\\"\\n\\nSolution:     fact_i = 1\\n    special_fact = 1\\n    for i in range(1, ...\",\n            \"metadata\": {\n                \"entry_point\": \"special_factorial\",\n                \"source\": \"HumanEval\",\n                \"task_id\": \"HumanEval/139\"\n            }\n        },\n        {\n            \"content\": \"Task: \\ndef special_factorial(n):\\n    \\\"\\\"\\\"The Brazilian factorial is defined as:\\n    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!\\n    where n > 0\\n\\n    For example:\\n    >>> special_factorial(4)\\n    288\\n\\n    The function will receive an integer as input and should return the special\\n    factorial of this integer.\\n    \\\"\\\"\\\"\\n\\nSolution:     fact_i = 1\\n    special_fact = 1\\n    for i in range(1, ...\",\n            \"metadata\": {\n                \"entry_point\": \"special_factorial\",\n                \"source\": \"HumanEval\",\n                \"task_id\": \"HumanEval/139\"\n            }\n        },\n        {\n            \"content\": \"Task: \\ndef f(n):\\n    \\\"\\\"\\\" Implement the function f that takes n as a parameter,\\n    and returns a list of size n, such that the value of the element at index i is the factorial of i if i is even\\n    or the sum of numbers from 1 to i otherwise.\\n    i starts from 1.\\n    the factorial of i is the multiplication of the numbers from 1 to i (1 * 2 * ... * i).\\n    Example:\\n    f(5) == [1, 2, 6, 24, 15]\\n  ...\",\n            \"metadata\": {\n                \"entry_point\": \"f\",\n                \"source\": \"HumanEval\",\n                \"task_id\": \"HumanEval/106\"\n            }\n        }\n    ],\n    \"timestamp\": \"2025-10-21T01:50:13.532732\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "app",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

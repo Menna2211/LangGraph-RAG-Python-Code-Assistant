@@ -45,7 +45,7 @@ def generate_code_node(state: AssistantState) -> AssistantState:
         response = code_rag_chain.invoke(state["user_input"])
         
         # Store retrieved context info
-        docs = retriever.get_relevant_documents(state["user_input"])
+        docs = retriever.invoke(state["user_input"])
         state["retrieved_context"] = [
             {
                 "content": doc.page_content[:400] + "..." if len(doc.page_content) > 400 else doc.page_content,
@@ -75,7 +75,7 @@ def explain_code_node(state: AssistantState) -> AssistantState:
         response = explain_rag_chain.invoke(state["user_input"])
         
         # Store retrieved context info
-        docs = retriever.get_relevant_documents(state["user_input"])
+        docs = retriever.invoke(state["user_input"])
         state["retrieved_context"] = [
             {
                 "content": doc.page_content[:400] + "..." if len(doc.page_content) > 400 else doc.page_content,

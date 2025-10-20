@@ -1,90 +1,70 @@
 # LangGraph RAG Python Code Assistant
 
-A lightweight Retrieval-Augmented Generation (RAG) prototype that wires a LangChain-style retrieval pipeline to a small state/graph-driven assistant. Provides a FastAPI HTTP API for chat-style queries that combine local context retrieval (Chroma DB) with a language model backend.
+A small research/demo project that builds a Retrieval-Augmented Generation (RAG) assistant for Python code using LangChain-style components, Chroma vector store, and an OpenRouter-compatible LLM. The assistant can generate code and explain code based on the HumanEval dataset as a local knowledge source.
 
-## Highlights
-- FastAPI server exposing a simple chat API
-- RAG pipeline setup in `rag_langchain.py`
-- Simple session state management in `app.py` and `state.py`
-- Local Chroma database stored under `chroma_langchain/`
+This repository is intended as a compact demo and learning reference — not a production-ready system.
+
+## Features
+- Loads the HumanEval dataset and indexes it into Chroma vectors
+- Uses sentence-transformers embeddings for retrieval
+- Provides two RAG flows: code generation and explanation
+- A simple state machine and chat loop for interactive use
 
 ## Requirements
-- Python 3.10+
-- A Python virtual environment (recommended)
-- Install dependencies:
+- Python 3.9+ (3.10 or 3.11 recommended)
+- The packages listed in `requirements.txt` (install with pip)
+- An OpenRouter-compatible API key (this project expects it in the code by default — see Security)
 
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1  # PowerShell on Windows
-pip install -r requirements.txt
-```
+## Quick setup
 
-Note: The project may depend on external LLM/embedding providers (OpenAI, Azure, etc.). Configure any required API keys or provider settings as environment variables. Check `rag_langchain.py` for provider-specific configuration and required environment variables.
+1. Create and activate a virtual environment (recommended):
 
-## Quick start (run locally)
+   - Windows (PowerShell):
 
-Start the API with Uvicorn:
+     ```powershell
+     python -m venv .venv; .\.venv\Scripts\Activate.ps1
+     ```
 
-```powershell
-# from repository root
-uvicorn app:app --reload --host 0.0.0.0 --port 8000
-```
+2. Install dependencies:
 
-Open http://localhost:8000/ to see the API info.
+   ```powershell
+   pip install -r requirements.txt
+   ```
 
-## API
+3. (Optional) If you want to persist vectors to a different directory, edit the call in `rag_langchain.setup_rag_pipeline` or pass a different `persist_directory`.
 
-Endpoints (from `app.py`):
+4. Run the assistant:
 
-- GET / : Basic API info and endpoints list
-- GET /health : Health check (returns status/version)
-- POST /chat : Send chat message to the assistant
-- GET /session/{id} : Retrieve session history by session id
+   ```powershell
+   python main.py
+   ```
 
-Example: send a message using curl
+## Files overview
+- `main.py` — entrypoint with chat loop and system initialization
+- `rag_langchain.py` — builds the RAG pipeline, loads HumanEval, vectorstore, retriever and the LLM chains
+- `nodes_langchain.py` — small node functions used by the graph/state machine (chat, router, generate/explain)
+- `state.py` — typed assistant state definition
+- `graph.py` — LangGraph graph wiring (state machine). Open this file to inspect how nodes are connected.
+- `plot.py` — helper to save a PNG of the LangGraph graph (called by `main.py`)
+- `chroma_langchain/` — directory used by Chroma to persist storage (already contains sample db files in this repo)
 
-```powershell
-curl -X POST "http://localhost:8000/chat" -H "Content-Type: application/json" -d '{"message":"Show me an example of how to use the API"}'
-```
+## Usage examples
+- Generate code: "Generate a function to calculate factorial"
+- Explain code: "Explain how binary search works"
 
-Example response:
+## Security & API keys
+This project currently contains a hard-coded API key placeholder in `rag_langchain.py`. Do NOT commit real API keys to source control. Recommended approaches:
 
-```json
-{
-	"response": "Sure — here is an example...",
-	"session_id": "session_1",
-	"intent": "ask_example"
-}
-```
+- Use environment variables (e.g., `OPENROUTER_API_KEY`) and read them in `rag_langchain.py`.
+- Use a secrets manager or local .env file (with `python-dotenv`) and ensure `.env` is in `.gitignore`.
 
-To continue a session, include the returned `session_id` in subsequent requests:
+Before using this repo for anything other than experimentation, move any keys out of source files.
 
-```powershell
-curl -X POST "http://localhost:8000/chat" -H "Content-Type: application/json" -d '{"message":"Follow-up question","session_id":"session_1"}'
-```
+## Troubleshooting
+- If HumanEval dataset download fails, ensure `datasets` package is installed and you have network access. You can also provide your own documents and bypass `load_humaneval_documents`.
+- If Chroma errors on startup, delete or move `chroma_langchain/chroma.sqlite3` and let the vector store rebuild.
+- If embeddings fail to load, ensure `sentence-transformers` and the `sentence-transformers/all-MiniLM-L6-v2` model are available; install packages listed in `requirements.txt`.
 
-## Project layout
-
-- `app.py` — FastAPI app & endpoints (entrypoint for the service)
-- `rag_langchain.py` — RAG pipeline setup and retrieval/LLM wiring
-- `graph.py` — State/graph orchestration used by the assistant
-- `state.py` — Assistant state data structures and helpers
-- `nodes_langchain.py` — Node implementations and LangChain adapters
-- `chroma_langchain/` — Local Chroma DB and data directory (contains `chroma.sqlite3`)
-- `plot.py`, `main.py` — utilities and example runners
-- `requirements.txt` — Python dependencies
-- `LICENSE` — Project license
-
-## Notes & troubleshooting
-
-- If the assistant fails to start, confirm provider API keys are set in environment variables.
-- If you modify the retrieval DB, stop the server and restart so the pipeline re-initializes.
-- Large models and embedding backends may require more memory and GPU — run on appropriate hardware when using big models.
-
-## Contributing
-
-Issues and PRs are welcome. When opening a PR, include a short description, reproduction steps, and tests if applicable.
-
-## License
-
-This project includes a `LICENSE` file — please review it for license details.
+## Development notes and caveats
+- This is a demo project. It assumes local compute and small datasets. For production, consider managed vector stores, secure key management, proper retry/timeout handling for LLM calls, and privacy controls.
+- The RAG chains in `rag_langchain.py` use a custom prompt and combine a retriever + prompt + LLM pipeline. You can adapt prompts to your needs.

@@ -1,11 +1,16 @@
-fastapi
-uvicorn
-pydantic
-python-multipart
-langgraph
-langchain-core
-sentence-transformers
-chromadb
-openai
-python-dotenv
-datasets
+# dependencies for LangGraph RAG Python Code Assistant
+langchain==0.3.7
+langchain-community==0.3.5
+langchain-openai==0.2.9
+chromadb==0.5.20
+sentence-transformers==3.3.1
+datasets==3.1.0
+langgraph==0.2.45
+langchain-huggingface==1.0.0
+
+# FastAPI dependencies
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+pydantic==2.9.2
+pydantic-settings==2.6.0
+python-dotenv==1.0.1
